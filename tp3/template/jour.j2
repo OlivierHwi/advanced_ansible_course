@@ -1,7 +1,7 @@
 pair et plus tard que midi
 
-{% if {{ ansible_date_time.day }} % 2 == 0 %}
-    Jour {{ ansible_date_time.day }} est pair 
+{% if {{ ansible_date_time['day'] }} % 2 == 0 %}
+    Jour {{ ansible_date_time['day'] }} est pair 
 {% else %}
-    Jour {{ ansible_date_time.day }} est impair
+    Jour {{ ansible_date_time['day'] }} est impair
 {% endif %}
