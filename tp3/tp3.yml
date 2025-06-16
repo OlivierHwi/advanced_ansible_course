@@ -93,6 +93,6 @@
 
     - name: Jour et Heure dans /etc/jour
       ansible.builtin.template:
-        src: files/jour.j2
+        src: template/jour.j2
         dest: /etc/jour
 
