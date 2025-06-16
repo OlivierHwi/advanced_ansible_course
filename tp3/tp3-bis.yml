@@ -4,8 +4,8 @@
   become: true
   become_user: root
   vars:
-    jour: {{ ansible_date_time.day }}
-    heure: {{ ansible_date_time.hour }}
+    monJour: "{{ ansible_date_time.day }}"
+    monHheure: "{{ ansible_date_time.hour }}"
 
   tasks:
     - name: Jour et Heure dans /etc/jour
