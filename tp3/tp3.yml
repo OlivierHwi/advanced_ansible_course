@@ -71,16 +71,25 @@
       ansible.builtin.package_facts:
         manager: auto
 
-  tasks:
     - name: Adapt index.html HomePage
       ansible.builtin.template:
         src: files/my_index.j2
         dest: /var/www/html/index.html
-      service:
+      when: "'apache2' in ansible_facts.packages or 'nginx' in ansible_facts.packages"
+
+    - name: Apache2 start
+      ansible.builtin.service:
         name: apache2
         state: started
         enabled: yes
-      when: "'apache2' in ansible_facts.packages or 'nginx' in ansible_facts.packages"
+      when: "'apache2' in ansible_facts.package_facts"
+
+    - name: NGINX start
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+      when: "'nginx' in ansible_facts.packages"
 
     - name: Gather the rpm package facts
       ansible.builtin.package_facts:
