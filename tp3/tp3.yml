@@ -77,16 +77,12 @@
         dest: /var/www/html/index.html
       when: "'apache2' in ansible_facts.packages or 'nginx' in ansible_facts.packages"
 
-    - name: Gather the rpm package facts
-      ansible.builtin.package_facts:
-        manager: auto
-        
     - name: Apache2 start
       ansible.builtin.service:
         name: apache2
         state: started
         enabled: yes
-      when: "'apache2' in ansible_facts.package_facts"
+      when: "'apache2' in ansible_facts.package"
 
     - name: NGINX start
       ansible.builtin.service:
