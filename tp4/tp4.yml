@@ -1,6 +1,8 @@
 ---
 - name: Installer role docker
   hosts: all
+  roles:
+    - geerlingguy.docker
   become: true
   become_user: root
 
