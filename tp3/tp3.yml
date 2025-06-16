@@ -82,7 +82,7 @@
         name: apache2
         state: started
         enabled: yes
-      when: "'apache2' in ansible_facts.package"
+      when: "'apache2' in ansible_facts.packages"
 
     - name: NGINX start
       ansible.builtin.service:
