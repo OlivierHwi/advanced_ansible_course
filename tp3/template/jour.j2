@@ -3,16 +3,5 @@ pair et plus tard que midi
 {% set jour = {{ jour }} | int %}
 {% set heure = {{ heure }} | int %}
 
-{% if jour % 2 == 0 %}
-  {% if heure >= 12 %}
-    pair et APRES midi
-  {% else %}
-    pair et AVANT midi
-  {% endif %}
-{% else %}
-  {% if heure >= 12 %}
-    impair et APRES midi
-  {% else %}
-    impair et AVANT midi
-  {% endif %}
-{% endif %}
+jour {{jour}}
+heure {{heure}}
