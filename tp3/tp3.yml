@@ -52,3 +52,22 @@
         name: nginx
         state: started
         enabled: yes
+
+- name: Installer ufw si Ubuntu
+  hosts: all
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Install Ufw
+      ansible.builtin.apt:
+        update_cache: true
+        name: ufw
+        state: present
+        update_cache: yes
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: Gather the rpm package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
