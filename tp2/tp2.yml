@@ -5,7 +5,7 @@
   tasks:
     - name: Installer apache2
       ansible.builtin.apt:
-        name: {{ item }}
+        name: "{{ item }}"
         state: present
         update_cache: yes
       loop:
