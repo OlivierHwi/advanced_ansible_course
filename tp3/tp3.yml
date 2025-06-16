@@ -90,7 +90,3 @@
         state: started
         enabled: yes
       when: "'nginx' in ansible_facts.packages"
-
-    - name: Gather the rpm package facts
-      ansible.builtin.package_facts:
-        manager: auto
