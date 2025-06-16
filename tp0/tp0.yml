@@ -4,13 +4,13 @@
   become: yes
   tasks:
     - name: Installer vim
-      apt:
+      ansible.builtin.apt:
         name: vim
         state: present
         update_cache: yes
 
     - name: Vérifier si le fichier /etc/passwd existe
-      stat:
+      ansible.builtin.stat:
         path: /etc/passwd
       register: resultat_fichier
 
