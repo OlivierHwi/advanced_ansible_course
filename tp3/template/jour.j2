@@ -1,7 +1,7 @@
 pair et plus tard que midi
 
-{% set jour = {{ ansible_date_time.day }} | int %}
-{% set heure = {{ ansible_date_time.hour }} | int %}
+{% set jour = {{ jour }} | int %}
+{% set heure = {{ heure }} | int %}
 
 {% if jour % 2 == 0 %}
   {% if heure >= 12 %}
