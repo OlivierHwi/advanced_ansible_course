@@ -1,7 +1,7 @@
 ---
 - name: Installer Vim sur les serveurs
   hosts: all
-  become: yes  # pour exécuter les commandes avec les privilèges sudo
+  become: yes
   tasks:
     - name: Installer vim
       apt:
