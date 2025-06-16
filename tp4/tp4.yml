@@ -1,0 +1,9 @@
+---
+- name: Installer role docker
+  hosts: all
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Install paquets necessaires
+      include_tasks: requirements.yml
