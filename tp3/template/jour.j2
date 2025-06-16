@@ -1,0 +1,15 @@
+pair et plus tard que midi
+
+{% if {{ ansible_date_time.day }} % 2 == 0 %}
+  {% if {{ ansible_date_time.hour }} >= 12 %}
+    pair et APRES midi
+  {% else %}
+    pair et AVANT midi
+  {% endif %}
+{% else %}
+  {% if {{ ansible_date_time.hour }} >= 12 %}
+    impair et APRES midi
+  {% else %}
+    impair et AVANT midi
+  {% endif %}
+{% endif %}
