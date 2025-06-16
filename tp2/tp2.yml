@@ -12,3 +12,9 @@
         - apache2
         - mysql-server
       register: package_check
+
+    - name: Remplacer le titre de la page HTML
+      replace:
+        path: /var/www/html/index.html
+        regexp: '<title>Apache2 Ubuntu Default Page: It works</title>'
+        replace: '<title>Apache2 Ubuntu Default Page: It works with Ansible</title>'
