@@ -1,20 +1,54 @@
 ---
-- name: Installer apache2 et mysql-server
-  hosts: all
-  become: yes
+- name: Installer apache2 et configure la page d'acceuil
+  hosts: apache-mysql
+  become: true
+  become_user: root
+
   tasks:
-    - name: Installer apache2
+    - name: Install apache2 mysql-server
       ansible.builtin.apt:
+        update_cache: true
         name: "{{ item }}"
         state: present
         update_cache: yes
       loop:
         - apache2
         - mysql-server
-      register: package_check
 
-    - name: Remplacer le titre de la page HTML
-      ansible.builtin.replace:
-        path: /var/www/html/index.html
-        regexp: 'Apache2 Default Page'
-        replace: 'Apache2 Default Page from Ansible'
+    - name: Gather the rpm package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Copy index.html if apache2 is installed
+      ansible.builtin.copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+        mode: '0644'
+      when: "'apache2' in ansible_facts.packages"
+
+- name: Installer apache2 et configure la page d'acceuil
+  hosts: nginx
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Install git nginx cowsay
+      ansible.builtin.apt:
+        update_cache: true
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - git
+        - nginx
+        - cowsay
+
+    - name: Gather the rpm package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: S'assurer que nginx est démarré et activé
+      service:
+        name: nginx
+        state: started
+        enabled: yes
