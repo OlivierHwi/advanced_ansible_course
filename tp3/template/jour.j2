@@ -1,1 +1,18 @@
-Je jour est {{ ansible_date_time.day }}
+pair et plus tard que midi
+
+{% set jour = {{ ansible_date_time.day }} | int %}
+{% set heure = {{ ansible_date_time.hour }} | int %}
+
+{% if jour % 2 == 0 %}
+  {% if heure >= 12 %}
+    pair et APRES midi
+  {% else %}
+    pair et AVANT midi
+  {% endif %}
+{% else %}
+  {% if heure >= 12 %}
+    impair et APRES midi
+  {% else %}
+    impair et AVANT midi
+  {% endif %}
+{% endif %}
