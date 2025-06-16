@@ -1,0 +1,24 @@
+---
+- name: Installer Vim sur les serveurs
+  hosts: all
+  become: yes  # pour exécuter les commandes avec les privilèges sudo
+  tasks:
+    - name: Installer vim
+      apt:
+        name: vim
+        state: present
+        update_cache: yes
+
+    - name: Vérifier si le fichier /etc/passwd existe
+      stat:
+        path: /etc/passwd
+      register: resultat_fichier
+
+    - name: Afficher un message selon la présence du fichier
+      debug:
+        msg: >
+          {% if resultat_fichier.stat.exists %}
+            Le fichier existe !
+          {% else %}
+            Le fichier n'existe pas.
+          {% endif %}
