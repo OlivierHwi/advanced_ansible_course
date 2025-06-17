@@ -1,0 +1,11 @@
+---
+- name: Installer role docker
+  hosts: all
+  roles:
+    - geerlingguy.docker
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Install paquets necessaires
+      include_tasks: requirements.yml

@@ -1,0 +1,98 @@
+---
+- name: Installer apache2 et configure la page d'acceuil
+  hosts: apache-mysql
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Install apache2 mysql-server
+      ansible.builtin.apt:
+        update_cache: true
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - apache2
+        - mysql-server
+
+    - name: Gather the rpm package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Copy index.html if apache2 is installed
+      ansible.builtin.copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+        mode: '0644'
+      when: "'apache2' in ansible_facts.packages"
+
+- name: Installer apache2 et configure la page d'acceuil
+  hosts: nginx
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Install git nginx cowsay
+      ansible.builtin.apt:
+        update_cache: true
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - git
+        - nginx
+        - cowsay
+
+    - name: Gather the rpm package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: S'assurer que nginx est démarré et activé
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+- name: Installer ufw si Ubuntu
+  hosts: all
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Install Ufw
+      ansible.builtin.apt:
+        update_cache: true
+        name: ufw
+        state: present
+        update_cache: yes
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: Gather the rpm package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Adapt index.html HomePage
+      ansible.builtin.template:
+        src: files/my_index.j2
+        dest: /var/www/html/index.html
+      when: "'apache2' in ansible_facts.packages or 'nginx' in ansible_facts.packages"
+
+    - name: Apache2 start
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: yes
+      when: "'apache2' in ansible_facts.packages"
+
+    - name: NGINX start
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+      when: "'nginx' in ansible_facts.packages"
+
+    - name: Jour et Heure dans /etc/jour
+      ansible.builtin.template:
+        src: template/jour.j2
+        dest: /etc/jour
+

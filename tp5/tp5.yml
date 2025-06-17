@@ -5,10 +5,5 @@
   become: true
   become_user: root
 
-  vars:
-    docker_users:
-      - vagrant
-
-  roles:
-    - geerlingguy.docker
-    - geerlingguy.clamav
+  - import_playbook: tp3.yml
+  - import_playbook: tp4.yml
