@@ -5,7 +5,7 @@
   tasks:
     - name: Lire le fichier CSV en base64
       slurp:
-        src: temperature.csv
+        src: ./temperature.csv
       register: csv_file
 
     - name: Afficher le contenu décodé
