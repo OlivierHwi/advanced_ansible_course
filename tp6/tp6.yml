@@ -4,8 +4,7 @@
     - vault.yml
   tasks:
     - name: Afficher les identifiants DB
-      debug:
-        msg: "Utilisateur DB : {{ db_user }}, Mot de passe DB : {{ db_password }}"
+      msg: "Utilisateur DB : {{ db_user }}, Mot de passe DB : {{ db_password }}"
 
 - name: Installer mysql-server
   hosts: mysql
