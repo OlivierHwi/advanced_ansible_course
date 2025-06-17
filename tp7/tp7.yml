@@ -7,5 +7,5 @@
     - name: Lire un fichier CSV
       debug:
         msg: 
-          - temps
+          - "Le temps = {{ temps }}"
           - "{{ lookup('csvfile', '2025-02-12T23:00', delimiter=',', file='temperature.csv') }}"
