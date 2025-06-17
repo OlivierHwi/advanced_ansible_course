@@ -6,4 +6,5 @@
       debug:
         msg: 
           - "Date : {{ ansible_date_time.date }}, Heure : {{ ansible_date_time.time }}"
+          - "{{ '%Y-%m-%d %H:%M:%S' | strftime(now()) }}"
           - "{{ lookup('csvfile', '2025-02-12T23:00', delimiter=',', file='temperature.csv') }}"
