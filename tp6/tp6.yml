@@ -1,17 +1,14 @@
 ---
-- name: Installer apache2
-  hosts: apache
-  become: true
-  become_user: root
-  roles:
-    - wordpress
-
 - name: Installer mysql-server
   hosts: mysql
   become: true
   become_user: root
 
   tasks:
+    - name: Sauvegarder l’IP principale dans une variable
+      set_fact:
+        mysql_ip: "{{ ansible_default_ipv4.address }}"
+
     - name: Install mysql-server
       ansible.builtin.apt:
         update_cache: true
@@ -19,3 +16,14 @@
         state: present
       loop:
         - mysql-server
+
+- name: Installer apache2
+  hosts: apache
+  become: true
+  become_user: root
+  roles:
+    - wordpress
+  
+  tasks:
+    - name : Config IP SGBD
+
