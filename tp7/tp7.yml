@@ -1,8 +1,7 @@
 ---
 - name: Afficher le contenu d'un fichier CSV
   hosts: localhost
-  gather_facts: no
   tasks:
     - name: Lire un fichier CSV
       debug:
-        msg: "{{ lookup('csvfile', delimiter=',', file='temperature.csv')}}"
+        msg: "{{ lookup('csvfile', delimiter=',', file='temperature.csv') }}"
