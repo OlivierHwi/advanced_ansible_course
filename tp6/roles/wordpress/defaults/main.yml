@@ -1,0 +1,8 @@
+---
+db_name: wordpress_db
+db_user: wordpress_user
+db_password: wordpress_pass
+db_root_password: root_mysql_password
+
+wp_download_url: https://wordpress.org/latest.tar.gz
+wp_install_dir: /var/www/html/wordpress

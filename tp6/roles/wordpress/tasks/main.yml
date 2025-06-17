@@ -1,0 +1,82 @@
+---
+- name: Installer paquets requis
+  apt:
+    name:
+      - apache2
+      - mysql-server
+      - php
+      - php-mysql
+      - libapache2-mod-php
+      - php-curl
+      - php-gd
+      - php-mbstring
+      - php-xml
+      - php-xmlrpc
+      - php-soap
+      - php-intl
+      - php-zip
+      - wget
+    state: present
+    update_cache: yes
+
+- name: Démarrer et activer Apache
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: Démarrer et activer MySQL
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Sécuriser MySQL root (optionnel, à adapter)
+  mysql_user:
+    login_user: root
+    login_password: ''
+    user: root
+    password: "{{ db_root_password }}"
+    host_all: yes
+    check_implicit_admin: yes
+  ignore_errors: yes
+
+- name: Créer base de données WordPress
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
+
+- name: Créer utilisateur MySQL pour WordPress
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: "{{ db_name }}.*:ALL"
+    host: localhost
+    state: present
+
+- name: Télécharger WordPress
+  get_url:
+    url: "{{ wp_download_url }}"
+    dest: /tmp/wordpress.tar.gz
+
+- name: Extraire WordPress
+  unarchive:
+    src: /tmp/wordpress.tar.gz
+    dest: /var/www/html/
+    remote_src: yes
+    creates: "{{ wp_install_dir }}/wp-config.php"
+
+- name: Copier le fichier wp-config.php
+  template:
+    src: wp-config.php.j2
+    dest: "{{ wp_install_dir }}/wp-config.php"
+    owner: www-data
+    group: www-data
+    mode: '0644'
+
+- name: Changer propriétaire du dossier WordPress
+  file:
+    path: "{{ wp_install_dir }}"
+    owner: www-data
+    group: www-data
+    recurse: yes
