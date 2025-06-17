@@ -15,5 +15,5 @@
     - name: Écrire la date et l'heure dans /etc/last_changed
       lineinfile:
         path: /etc/last_changed
-        line: ""Dernière modification : {{ current_datetime }}"
+        line: "Dernière modification : {{ current_datetime }}"
         insertafter: EOF
