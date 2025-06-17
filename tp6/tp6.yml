@@ -1,13 +1,13 @@
 ---
 - name: Installer apache2
-  hosts: web
+  hosts: apache
   become: true
   become_user: root
   roles:
     - wordpress
 
 - name: Installer mysql-server
-  hosts: db
+  hosts: mysql
   become: true
   become_user: root
 
