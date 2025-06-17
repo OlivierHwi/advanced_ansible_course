@@ -1,6 +1,6 @@
 ---
 - name: Afficher le contenu d'un fichier CSV
-  hosts: all
+  hosts: localhost
   gather_facts: no
   tasks:
     - name: Lire le fichier CSV en base64
