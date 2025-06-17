@@ -1,11 +1,14 @@
 ---
-- name: Installer role docker
+- name: Installer et configurer docker
   hosts: all
-  roles:
-    - geerlingguy.docker
+  remote_user: root
   become: true
   become_user: root
 
-  tasks:
-    - name: Install paquets necessaires
-      include_tasks: requirements.yml
+  vars:
+    docker_users:
+      - vagrant
+
+  roles:
+    - geerlingguy.docker
+    - geerlingguy.clamav
