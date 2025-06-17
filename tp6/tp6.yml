@@ -5,7 +5,7 @@
   become_user: root
   roles:
     - wordpress
-  
+
 - name: Installer mysql-server
   hosts: db
   become: true
