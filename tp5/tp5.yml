@@ -1,3 +1,19 @@
 ---
 - import_playbook: tp3.yml
-- import_playbook: tp4.yml
+#- import_playbook: tp4.yml
+
+- name: Écrire la date et l'heure dans /etc/last_changed
+  hosts: all
+  become: yes
+  tasks:
+    - name: Récupérer la date et l'heure actuelles
+      set_fact:
+        current_datetime: "{{ lookup('pipe', 'date +\"%Y-%m-%d %H:%M:%S\"') }}"
+
+    - name: Écrire la date et l'heure dans /etc/last_changed
+      copy:
+        content: "Dernière modification : {{ current_datetime }}\n"
+        dest: /etc/last_changed
+        owner: root
+        group: root
+        mode: '0644'
