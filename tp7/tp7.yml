@@ -5,5 +5,5 @@
     - name: Lire un fichier CSV
       debug:
         msg: 
-          - "Test"
+          - "Date : {{ ansible_date_time.date }}, Heure : {{ ansible_date_time.time }}"
           - "{{ lookup('csvfile', '2025-02-12T23:00', delimiter=',', file='temperature.csv') }}"
