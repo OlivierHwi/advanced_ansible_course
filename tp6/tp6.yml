@@ -1,21 +1,23 @@
 ---
+- hosts: all
+  vars_files:
+    - vault.yml
+  tasks:
+    - name: Afficher les identifiants DB
+      debug:
+        msg: "Utilisateur DB : {{ db_user }}, Mot de passe DB : {{ db_password }}"
+
 - name: Installer mysql-server
   hosts: mysql
   become: true
   become_user: root
+  roles:
+    - mysql
 
   tasks:
     - name: Sauvegarder l’IP principale dans une variable
       set_fact:
         mysql_ip: "{{ ansible_default_ipv4.address }}"
-
-    - name: Install mysql-server
-      ansible.builtin.apt:
-        update_cache: true
-        name: "{{ item }}"
-        state: present
-      loop:
-        - mysql-server
 
 - name: Installer apache2
   hosts: apache
