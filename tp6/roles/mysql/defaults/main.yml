@@ -1,0 +1,5 @@
+---
+db_name: wordpress_db
+db_user: wordpress_user
+db_password: wordpress_pass
+db_root_password: root_mysql_password

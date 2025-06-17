@@ -2,19 +2,7 @@
 - name: Installer paquets requis
   ansible.builtin.apt:
     name:
-      - apache2
-      - php
-      - php-mysql
-      - libapache2-mod-php
-      - php-curl
-      - php-gd
-      - php-mbstring
-      - php-xml
-      - php-xmlrpc
-      - php-soap
-      - php-intl
-      - php-zip
-      - wget
+      - mysql-server
     state: present
     update_cache: yes
 
