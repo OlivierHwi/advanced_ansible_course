@@ -48,7 +48,7 @@
         manager: auto
 
     - name: S'assurer que nginx est démarré et activé
-      service:
+      ansible.builtin.service:
         name: nginx
         state: started
         enabled: yes
