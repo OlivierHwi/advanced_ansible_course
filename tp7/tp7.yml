@@ -1,0 +1,13 @@
+---
+- name: Afficher le contenu d'un fichier CSV
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Lire le fichier CSV en base64
+      slurp:
+        src: temperature.csv
+      register: csv_file
+
+    - name: Afficher le contenu décodé
+      debug:
+        msg: "{{ csv_file.content | b64decode }}"
