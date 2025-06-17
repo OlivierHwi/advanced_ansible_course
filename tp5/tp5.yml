@@ -1,6 +1,8 @@
 ---
-- import_playbook: tp3.yml
-#- import_playbook: tp4.yml
+- name : Import playbook tp3
+  ansible.builtin.import_playbook: tp3.yml
+#- name : Import playbook tp4
+#  ansible.builtin.import_playbook: tp4.yml
 
 - name: Écrire la date et l'heure dans /etc/last_changed
   hosts: all
@@ -11,9 +13,7 @@
         current_datetime: "{{ lookup('pipe', 'date +\"%Y-%m-%d %H:%M:%S\"') }}"
 
     - name: Écrire la date et l'heure dans /etc/last_changed
-      copy:
-        content: "Dernière modification : {{ current_datetime }}\n"
-        dest: /etc/last_changed
-        owner: root
-        group: root
-        mode: '0644'
+      lineinfile:
+        path: /etc/last_changed
+        line: ""Dernière modification : {{ current_datetime }}"
+        insertafter: EOF
