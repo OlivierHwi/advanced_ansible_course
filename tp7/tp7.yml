@@ -1,10 +1,11 @@
 ---
 - name: Afficher le contenu d'un fichier CSV
   hosts: localhost
+  vars:
+    temps: "{{ ansible_date_time.date }}T{{ ansible_date_time.hour }}:00"
   tasks:
     - name: Lire un fichier CSV
       debug:
         msg: 
-          - "Date : {{ ansible_date_time.date }}, Heure : {{ ansible_date_time.hour }}"
-          - "{{ ansible_date_time.date }}T{{ ansible_date_time.hour }}:00"
+          - temps
           - "{{ lookup('csvfile', '2025-02-12T23:00', delimiter=',', file='temperature.csv') }}"
