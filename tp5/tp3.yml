@@ -10,7 +10,6 @@
         update_cache: true
         name: "{{ item }}"
         state: present
-        update_cache: yes
       loop:
         - apache2
         - mysql-server
@@ -37,7 +36,6 @@
         update_cache: true
         name: "{{ item }}"
         state: present
-        update_cache: yes
       loop:
         - git
         - nginx
@@ -64,7 +62,6 @@
         update_cache: true
         name: ufw
         state: present
-        update_cache: yes
       when: ansible_facts['distribution'] == "Ubuntu"
 
     - name: Gather the rpm package facts
