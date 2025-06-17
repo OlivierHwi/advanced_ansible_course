@@ -9,3 +9,14 @@
         msg: 
           - "Le temps = {{ temps }}"
           - "{{ lookup('csvfile', '{{ temps }}', delimiter=',', file='temperature.csv') }}"
+    - name : Appeler API open-meteo et récupérer du JSON
+      uri:
+        url: https://api.open-meteo.com/v1/forecast?latitude=43.6191717&longitude=6.9471323&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m
+        method: GET
+        return_content: yes
+      register: api_response
+
+    - name: Parser et afficher le current time et la temperature
+      debug:
+        msg: "Heure courante: {{ item.current.time }} et temperature en cours {{ item.current.temperature_2m }}"
+      loop: "{{ api_response.json }}"
