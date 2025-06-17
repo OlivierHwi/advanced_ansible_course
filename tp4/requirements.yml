@@ -2,3 +2,5 @@
 roles:
   - name: geerlingguy.docker
     version: 7.4.7
+  - name: geerlingguy.clamav
+    version: 2.1.0
