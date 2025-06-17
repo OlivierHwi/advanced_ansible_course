@@ -8,4 +8,4 @@
       debug:
         msg: 
           - "Le temps = {{ temps }}"
-          - "{{ lookup('csvfile', '2025-02-12T23:00', delimiter=',', file='temperature.csv') }}"
+          - "{{ lookup('csvfile', '{{ temps }}', delimiter=',', file='temperature.csv') }}"
