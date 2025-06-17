@@ -18,5 +18,7 @@
 
     - name: Parser et afficher le current time et la temperature
       debug:
-        msg: "Heure courante: {{ item.current.time }} et temperature en cours {{ item.current.temperature_2m }}"
+        msg: 
+          - "Latitude {{ item.latitude }}"
+          #- "Heure courante: {{ item.current.time }} et temperature en cours {{ item.current.temperature_2m }}"
       loop: "{{ api_response.json }}"
