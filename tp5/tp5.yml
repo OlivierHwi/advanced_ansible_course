@@ -1,7 +1,7 @@
 ---
 - name: Installer et configurer docker
   hosts: all
-  remote_user: vagrant
+  remote_user: root
   become: true
   become_user: root
 
