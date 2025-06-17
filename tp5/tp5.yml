@@ -1,9 +1,3 @@
 ---
-- name: Installer et configurer docker
-  hosts: all
-  remote_user: root
-  become: true
-  become_user: root
-
-  - import_playbook: tp3.yml
-  - import_playbook: tp4.yml
+- import_playbook: tp3.yml
+- import_playbook: tp4.yml
