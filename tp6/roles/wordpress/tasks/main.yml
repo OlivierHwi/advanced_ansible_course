@@ -1,6 +1,6 @@
 ---
 - name: Installer paquets requis
-  apt:
+  ansible.builtin.apt:
     name:
       - apache2
       - mysql-server
@@ -20,19 +20,19 @@
     update_cache: yes
 
 - name: Démarrer et activer Apache
-  service:
+  ansible.builtin.service:
     name: apache2
     state: started
     enabled: yes
 
 - name: Démarrer et activer MySQL
-  service:
+  ansible.builtin.service:
     name: mysql
     state: started
     enabled: yes
 
 - name: Sécuriser MySQL root (optionnel, à adapter)
-  mysql_user:
+  community.mysql.mysql_user:
     login_user: root
     login_password: ''
     user: root
@@ -42,12 +42,12 @@
   ignore_errors: yes
 
 - name: Créer base de données WordPress
-  mysql_db:
+  community.mysql.mysql_db:
     name: "{{ db_name }}"
     state: present
 
 - name: Créer utilisateur MySQL pour WordPress
-  mysql_user:
+  community.mysql.mysql_user:
     name: "{{ db_user }}"
     password: "{{ db_password }}"
     priv: "{{ db_name }}.*:ALL"
@@ -55,19 +55,19 @@
     state: present
 
 - name: Télécharger WordPress
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ wp_download_url }}"
     dest: /tmp/wordpress.tar.gz
 
 - name: Extraire WordPress
-  unarchive:
+  ansible.builtin.unarchive:
     src: /tmp/wordpress.tar.gz
     dest: /var/www/html/
     remote_src: yes
     creates: "{{ wp_install_dir }}/wp-config.php"
 
 - name: Copier le fichier wp-config.php
-  template:
+  ansible.builtin.template:
     src: wp-config.php.j2
     dest: "{{ wp_install_dir }}/wp-config.php"
     owner: www-data
@@ -75,7 +75,7 @@
     mode: '0644'
 
 - name: Changer propriétaire du dossier WordPress
-  file:
+  ansible.builtin.file:
     path: "{{ wp_install_dir }}"
     owner: www-data
     group: www-data
