@@ -4,4 +4,5 @@
   tasks:
     - name: Lire un fichier CSV
       debug:
+        msg: "Test"
         msg: "{{ lookup('csvfile', '2025-02-12T23:00', delimiter=',', file='temperature.csv') }}"
