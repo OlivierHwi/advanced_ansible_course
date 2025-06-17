@@ -3,11 +3,6 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: Lire le fichier CSV en base64
-      slurp:
-        src: ./temperature.csv
-      register: csv_file
-
-    - name: Afficher le contenu décodé
+    - name: Lire un fichier CSV
       debug:
-        msg: "{{ csv_file.content | b64decode }}"
+        msg: "{{ lookup('csvfile', delimiter=',', file='temperature.csv')}}"
