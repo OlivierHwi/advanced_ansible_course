@@ -31,5 +31,5 @@
     - name: Parcours dict temperature
       ansible.builtin.debug:
         msg: "Date {{ item.time }} et temperature {{ item.temperature }} supérieure à {{ api_response.json.current.temperature_2m }}"
-      loop: "{{ temperatures.list }}"
       when: {{ item.temperature | int }} > 18
+      loop: "{{ temperatures.list }}"
