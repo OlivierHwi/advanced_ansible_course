@@ -45,7 +45,7 @@
       ansible.builtin.debug:
         msg: "Date {{ item.time }} et temperature {{ (item.temperature+5) }} supérieure à {{ api_response.json.current.temperature_2m }}"
       loop: "{{ temperatures.list }}"
-      when: (item.temperature+5 | int) > api_response.json.current.temperature_2m | int
+      when: item.temperature + 5 | int > api_response.json.current.temperature_2m | int
       
     - name: Filter personnalisé
       debug:
