@@ -3,6 +3,17 @@
   hosts: localhost
   vars:
     temps: "{{ ansible_date_time.date }}T{{ ansible_date_time.hour }}:00"
+    utilisateurs:
+      - name: "Alice"
+        age: 30
+        ville: "Paris"
+      - name: "Bob"
+        age: 25
+        ville: "Lyon"
+      - name: "Charlie"
+        age: 35
+        ville: "Marseille"
+
   tasks:
 
     - name: Appeler API open-meteo et récupérer du JSON
@@ -28,17 +39,6 @@
 #      delegate_to: localhost
 
     - name: Parcours dict temperature
-      vars:
-      utilisateurs:
-        - name: "Alice"
-          age: 30
-          ville: "Paris"
-        - name: "Bob"
-          age: 25
-          ville: "Lyon"
-        - name: "Charlie"
-          age: 35
-          ville: "Marseille"
       ansible.builtin.debug:
         msg: "Date {{ item.name }} et temperature {{ item.age }}"
       loop: "{{ utilisateurs }}"
