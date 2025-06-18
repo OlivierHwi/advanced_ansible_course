@@ -28,8 +28,13 @@
       register: temperatures
 #      delegate_to: localhost
 
-    - name: Parcours dict temperature
-      ansible.builtin.debug:
-        msg: "Date {{ item.time }} et temperature {{ item.temperature }} supérieure à {{ api_response.json.current.temperature_2m }}"
-      when: item.temperature > 18
-      loop: "{{ temperatures.list }}"
+#    - name: Parcours dict temperature
+#      ansible.builtin.debug:
+#        msg: "Date {{ item.time }} et temperature {{ item.temperature }} supérieure à {{ api_response.json.current.temperature_2m }}"
+#      when: item.temperature > 18
+#      loop: "{{ temperatures.list }}"
+#
+
+    - name: Filter personnalisé
+      debug:
+        msg: "{{ 'ansible' | reverse_string }}"
