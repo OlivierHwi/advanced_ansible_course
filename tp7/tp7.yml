@@ -39,7 +39,7 @@
       debug:
         msg: "{{ item.name }} est majeur(e), âge : {{ item.age }}"
       loop: "{{ utilisateurs }}"
-      when: item.age >= 18
+      when: item.age + 2 >= 16
 
     - name: Parcours dict temperature
       ansible.builtin.debug:
