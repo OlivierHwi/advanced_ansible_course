@@ -4,11 +4,6 @@
   vars:
     temps: "{{ ansible_date_time.date }}T{{ ansible_date_time.hour }}:00"
   tasks:
-    - name: Lire un fichier CSV
-      debug:
-        msg: 
-          - "Le temps = {{ temps }}"
-          - "{{ lookup('csvfile', '{{ temps }}', delimiter=',', file='temperature.csv') }}"
 
     - name : Appeler API open-meteo et récupérer du JSON
       uri:
@@ -20,7 +15,18 @@
     - name: Parser et afficher le current time et la temperature
       debug:
         msg: 
-#          - "Latitude {{ api_response.json.latitude }}"
           - "Current Time {{ api_response.json.current.time | regex_replace(':.*$', ':00') }} and current temperature {{ api_response.json.current.temperature_2m}}"
-          #- "Heure courante: {{ item.current.time }} et temperature en cours {{ item.current.temperature_2m }}"
-#      loop: "{{ api_response.json }}"
+
+    - name: Lire un fichier CSV
+      set_fact:
+        listTemperatures: "{{ lookup('csvfile', file='temperature.csv'), delimiter=',' }}"
+    - name: Affiche temps
+      debug:
+        vars: listTemperatures
+
+    # - name: Affiche temps
+    #   debug:
+    #     msg: 
+    #       - "Le temps = {{ temps }}"
+#          - "{{ lookup('csvfile', '{{ temps }}', delimiter=',', file='temperature.csv') }}"
+
