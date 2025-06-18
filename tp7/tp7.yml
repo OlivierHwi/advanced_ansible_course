@@ -14,8 +14,10 @@
 
     - name: Parser et afficher le current time et la temperature
       debug:
-        msg: 
-          - "Current Time {{ api_response.json.current.time | regex_replace(':.*$', ':00') }} and current temperature {{ api_response.json.current.temperature_2m}}"
+        msg:
+          - > 
+            "Current Time {{ api_response.json.current.time | regex_replace(':.*$', ':00') }} 
+            and temperature {{ api_response.json.current.temperature_2m}}"
 
     # Read a CSV file and access the first item
     - name: Read temperatures from CSV file and return a list
@@ -23,7 +25,8 @@
         path: temperature.csv
       register: temperatures
 #      delegate_to: localhost
-    
-    - ansible.builtin.debug:
-        msg: "Date {{ item.time }} et temperature {{ item.temperature }}"
-      loop: "{{ temperatures }}"
+
+    - name: Parcours dict temperature
+      - ansible.builtin.debug:
+          msg: "Date {{ item.time }} et temperature {{ item.temperature }}"
+        loop: "{{ temperatures }}"
