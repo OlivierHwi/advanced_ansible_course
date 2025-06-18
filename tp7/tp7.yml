@@ -19,8 +19,9 @@
 
     - name: Lire un fichier CSV
       set_fact:
-        listTemperatures: "{{ lookup('csvfile', file='temperature.csv'), delimiter=',' }}"
-    - name: Affiche temps
+        listTemperatures: "{{ lookup('csvfile', file='temperature.csv', delimiter=',') }}"
+
+    - name: Affiche liste des temperatures
       debug:
         vars: listTemperatures
 
