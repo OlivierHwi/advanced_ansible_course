@@ -3,13 +3,13 @@
   hosts: localhost
   vars:
     temps: "{{ ansible_date_time.date }}T{{ ansible_date_time.hour }}:00"
-    utilisateurs:
-      - name: "Alice"
-        age: 30
-      - name: "Bob"
-        age: 16
-      - name: "Charlie"
-        age: 22
+#    utilisateurs:
+#      - name: "Alice"
+#        age: 30
+#      - name: "Bob"
+#        age: 16
+#      - name: "Charlie"
+#        age: 22
 
   tasks:
 
@@ -35,11 +35,11 @@
       register: temperatures
 #      delegate_to: localhost
 
-    - name: Afficher uniquement les utilisateurs majeurs
-      debug:
-        msg: "{{ item.name }} est majeur(e), âge : {{ item.age }}"
-      loop: "{{ utilisateurs }}"
-      when: item.age + 2 >= 25
+#    - name: Afficher uniquement les utilisateurs majeurs
+#      debug:
+#        msg: "{{ item.name }} est majeur(e), âge : {{ item.age }}"
+#      loop: "{{ utilisateurs }}"
+#      when: item.age + 2 >= 25
 
     - name: Parcours dict temperature
       ansible.builtin.debug:
