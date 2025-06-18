@@ -28,6 +28,17 @@
 #      delegate_to: localhost
 
     - name: Parcours dict temperature
+      vars:
+      utilisateurs:
+        - name: "Alice"
+          age: 30
+          ville: "Paris"
+        - name: "Bob"
+          age: 25
+          ville: "Lyon"
+        - name: "Charlie"
+          age: 35
+          ville: "Marseille"
       ansible.builtin.debug:
-        msg: "Date {{ item.time }} et temperature {{ item.temperature }}"
-      loop: "{{ temperatures }}"
+        msg: "Date {{ item.name }} et temperature {{ item.age }}"
+      loop: "{{ utilisateurs }}"
