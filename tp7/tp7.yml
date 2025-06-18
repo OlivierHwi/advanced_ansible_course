@@ -41,5 +41,5 @@
 
     - name: Parcours dict temperature
       ansible.builtin.debug:
-        msg: "Date {{ item.temperature }} et temperature item.age"
-      loop: "{{ temperatures }}"
+        msg: "Date {{ item.time }} et temperature {{ item.temperature }}"
+      loop: "{{ temperatures.list }}"
