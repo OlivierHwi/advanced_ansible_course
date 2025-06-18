@@ -7,7 +7,9 @@
 
     - name : Appeler API open-meteo et récupérer du JSON
       uri:
-        url: https://api.open-meteo.com/v1/forecast?latitude=43.6191717&longitude=6.9471323&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m
+        url: >
+             https://api.open-meteo.com/v1/forecast?latitude=43.6191717&longitude=6.9471323&
+             current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m
         method: GET
         return_content: yes
       register: api_response
