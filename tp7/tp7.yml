@@ -35,7 +35,6 @@
     - name: Read temperatures from CSV file and return a list
       community.general.read_csv:
         path: temperature.csv
-        key: time
       register: temperatures
 #      delegate_to: localhost
 
