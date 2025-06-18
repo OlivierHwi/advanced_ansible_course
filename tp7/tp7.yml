@@ -25,5 +25,5 @@
 #      delegate_to: localhost
     
     - ansible.builtin.debug:
-        msg: 'Date {{ item.time }} et temperature {{ item.temperature }} '
+        msg: "Date {{ item.time }} et temperature {{ item.temperature }}"
       loop: "{{ temperatures }}"
