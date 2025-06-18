@@ -27,6 +27,6 @@
 #      delegate_to: localhost
 
     - name: Parcours dict temperature
-      - ansible.builtin.debug:
-          msg: "Date {{ item.time }} et temperature {{ item.temperature }}"
-        loop: "{{ temperatures }}"
+      ansible.builtin.debug:
+        msg: "Date {{ item.time }} et temperature {{ item.temperature }}"
+      loop: "{{ temperatures }}"
