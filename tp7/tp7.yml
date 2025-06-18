@@ -3,16 +3,6 @@
   hosts: localhost
   vars:
     temps: "{{ ansible_date_time.date }}T{{ ansible_date_time.hour }}:00"
-    utilisateurs:
-      - name: "Alice"
-        age: 30
-        ville: "Paris"
-      - name: "Bob"
-        age: 25
-        ville: "Lyon"
-      - name: "Charlie"
-        age: 35
-        ville: "Marseille"
 
   tasks:
 
@@ -40,5 +30,6 @@
 
     - name: Parcours dict temperature
       ansible.builtin.debug:
-        msg: "Date {{ item.time }} et temperature {{ item.temperature }}"
+        msg: "Date {{ item.time }} et temperature {{ item.temperature }} supérieure à {{ api_response.json.current.temperature_2m }}"
       loop: "{{ temperatures.list }}"
+      when: item.temperature > api_response.json.current.temperature_2m
