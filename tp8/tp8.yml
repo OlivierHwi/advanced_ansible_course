@@ -14,8 +14,7 @@
   tasks:
 
     - name: Afficher uniquement les utilisateurs majeurs
-      debug:
+      ansible.builtin.debug:
         msg: "{{ item.name }} est majeur(e), âge : {{ item.age }}"
       loop: "{{ utilisateurs }}"
       when: item.age >= 18
-
