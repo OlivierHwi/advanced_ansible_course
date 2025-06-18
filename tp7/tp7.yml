@@ -16,6 +16,7 @@
       debug:
         msg: 
           - "Current Time {{ api_response.json.current.time | regex_replace(':.*$', ':00') }} and current temperature {{ api_response.json.current.temperature_2m}}"
+
     # Read a CSV file and access the first item
     - name: Read temperatures from CSV file and return a list
       community.general.read_csv:
@@ -24,19 +25,5 @@
 #      delegate_to: localhost
     
     - ansible.builtin.debug:
-        msg: 'Date {{ temperatures.list.1.time }} et temperature {{ temperatures.list.1.temperature }} '
-
-#    - name: Lire un fichier CSV
-#      set_fact:
-#        listTemperatures: "{{ lookup('csvfile', file='temperature.csv', delimiter=',') }}"
-#
-#    - name: Affiche liste des temperatures
-#      debug:
-#        vars: listTemperatures
-#
-#    - name: Affiche temps
-#      debug:
-#        msg: 
-#          - "Le temps = {{ temps }}"
-#          - "{{ lookup('csvfile', '{{ temps }}', delimiter=',', file='temperature.csv') }}"
-
+        msg: 'Date {{ item.time }} et temperature {{ item.temperature }} '
+      loop "{{ temperatures }}"
